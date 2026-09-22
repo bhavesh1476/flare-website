@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flare Entertainments | Something Spectacular Is Coming Soon</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#DADE21',
+                            yellowLight: '#EBF033',
+                            yellowDark: '#ADB015',
+                            darkBg: '#090A0D',
+                            cardBg: '#12141A',
+                            surface: '#1A1D26'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Bodoni Moda', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulseGlow 4s infinite ease-in-out alternate',
+                        'float': 'float 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { opacity: '0.3', transform: 'scale(0.96)' },
+                            '100%': { opacity: '0.75', transform: 'scale(1.04)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090A0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232733;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #DADE21;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(18, 20, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(218, 222, 33, 0.12);
+        }
+
+        .glass-card {
+            background: rgba(22, 25, 33, 0.5);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(218, 222, 33, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px -10px rgba(218, 222, 33, 0.18);
+        }
+
+        /* Brand Yellow Gradient Text */
+        .yellow-gradient-text {
+            background: linear-gradient(135deg, #FFFF9E 0%, #DADE21 60%, #9FA212 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Particle Overlay */
+        #flareCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-brand-darkBg text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-brand-yellow selection:text-black">
+
+    <!-- Dynamic Ambient Particles -->
+    <canvas id="flareCanvas"></canvas>
+
+    <!-- Glowing Background Ambient Orbs -->
+    <div class="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-yellow/10 rounded-full blur-[150px] pointer-events-none z-0 animate-pulse-slow"></div>
+    <div class="fixed bottom-0 right-0 w-[400px] h-[400px] bg-brand-yellow/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+    <div class="relative z-10 min-h-screen flex flex-col justify-between items-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        
+        <!-- Header / Logo Bar -->
+        <header class="w-full pt-8 pb-4 flex justify-between items-center border-b border-white/10">
+            
+            <!-- Logo Header -->
+            <div class="flex items-center gap-3 cursor-pointer group">
+                <img src="Flare Logo PNG.png" alt="Flare Entertainments Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(218,222,33,0.3)]">
+            </div>
+
+            <!-- Status Indicator -->
+            <div class="flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel text-xs font-semibold text-brand-yellow border border-brand-yellow/20">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
+                </span>
+                <span class="tracking-widest uppercase text-[11px]">In Production</span>
+            </div>
+        </header>
+
+        <main class="w-full flex-1 flex flex-col items-center justify-center py-12 text-center">
+            
+            <!-- Hero Central Logo Image -->
+            <div class="relative my-6 group">
+                <!-- Background Ambient Glow -->
+                <div class="absolute -inset-6 rounded-full bg-brand-yellow/20 blur-2xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                
+                <!-- Main Animated Logo Image -->
+                <img src="Flare Logo PNG.png" alt="Flare Entertainments" class="w-48 sm:w-64 h-auto relative filter drop-shadow-[0_0_25px_rgba(218,222,33,0.5)] animate-float object-contain">
+            </div>
+
+            <!-- Headlines -->
+            <div class="max-w-3xl mx-auto space-y-4">
+                <p class="text-xs sm:text-sm font-bold tracking-[0.35em] uppercase text-brand-yellow">
+                    Unrivaled Event Production & Experiential Design
+                </p>
+                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.15]">
+                    Something <span class="yellow-gradient-text italic font-serif font-normal">Spectacular</span> Is Coming Soon
+                </h1>
+                <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed pt-2">
+                    Flare Entertainments is preparing to unveil an extraordinary dimension of live shows, corporate galas, concert productions, and brand spectacles.
+                </p>
+            </div>
+
+            <!-- VIP Invitation Form -->
+            <div class="w-full max-w-md mx-auto my-10">
+                <form id="notifyForm" class="relative flex flex-col sm:flex-row items-center gap-2 p-1.5 rounded-2xl glass-panel focus-within:border-brand-yellow/60 transition duration-300">
+                    <div class="flex items-center pl-4 w-full sm:w-auto flex-1">
+                        <i data-lucide="bell" class="w-5 h-5 text-brand-yellow/80 mr-3 shrink-0"></i>
+                        <input 
+                            type="email" 
+                            id="emailInput"
+                            required
+                            placeholder="Enter your email for private invite" 
+                            class="w-full bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none py-3 sm:py-2.5"
+                        >
+                    </div>
+                    <button 
+                        type="submit" 
+                        class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-brand-yellow text-black font-bold text-xs uppercase tracking-wider hover:bg-brand-yellowLight hover:shadow-[0_0_25px_rgba(218,222,33,0.5)] transition duration-300 flex items-center justify-center gap-2 group shrink-0"
+                    >
+                        <span>Notify Me</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                </form>
+
+                <!-- Confirmation Message -->
+                <div id="successMsg" class="hidden mt-3 p-3.5 rounded-xl bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow text-xs text-center flex items-center justify-center gap-2 transition duration-300">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0"></i>
+                    <span>Thank you. You will be among the first to experience our grand launch.</span>
+                </div>
+            </div>
+
+            <!-- Experience / Services Preview Section -->
+            <div class="w-full max-w-5xl my-6">
+                <div class="text-center mb-8">
+                    <h3 class="font-serif text-xl sm:text-2xl font-light tracking-wide text-white">Our Signature Realm</h3>
+                    <div class="w-10 h-0.5 bg-brand-yellow mx-auto mt-2 opacity-80"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
+                    
+                    <!-- Service 1: Corporate Galas -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="building-2" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Corporate Galas & Summits</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">High-impact corporate gatherings, luxury product reveals, and prestigious annual galas executed with flawless precision.</p>
+                    </div>
+
+                    <!-- Service 2: Live Shows & Concerts -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="music-4" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Live Concerts & Festivals</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Arena-scale musical experiences, international artist tours, and electrifying live performance curation.</p>
+                    </div>
+
+                    <!-- Service 3: Brand Activations -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="sparkles" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Experiential Brand Activations</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Immersive pop-ups, interactive installations, and multi-sensory brand storytelling that leaves lasting impressions.</p>
+                    </div>
+
+                    <!-- Service 4: Stage & Lighting Production -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="disc" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Stage & Light Architecture</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">State-of-the-art stage design, intelligent lighting rigs, and pyrotechnic visual displays tailored for grand venues.</p>
+                    </div>
+
+                    <!-- Service 5: Private VIP Celebrations -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="glass-water" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Exclusive VIP Celebrations</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Private red-carpet affairs, high-society galas, and ultra-luxe private entertainment experiences.</p>
+                    </div>
+
+                    <!-- Service 6: Artist Management -->
+                    <div class="glass-card p-6 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 flex items-center justify-center mb-4 text-brand-yellow group-hover:scale-110 transition duration-300">
+                            <i data-lucide="mic" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-serif text-lg font-semibold text-white mb-2">Talent & Artist Curation</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Securing world-class performers, A-list celebrity talent, and headline DJs for world-class events.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full py-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+            
+            <div class="flex items-center gap-2">
+                <img src="Flare Logo PNG.png" alt="Flare Logo" class="h-5 w-auto object-contain">
+                <span class="font-serif text-sm font-light text-white tracking-wider"></span>
+            </div>
+
+            <!-- Social Media Channels Only -->
+            <div class="flex items-center gap-3">
+                <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-gray-300 hover:text-brand-yellow hover:border-brand-yellow transition duration-300">
+                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                </a>
+                <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-gray-300 hover:text-brand-yellow hover:border-brand-yellow transition duration-300">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+                <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-gray-300 hover:text-brand-yellow hover:border-brand-yellow transition duration-300">
+                    <i data-lucide="facebook" class="w-4 h-4"></i>
+                </a>
+                <a href="#" aria-label="Twitter" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-gray-300 hover:text-brand-yellow hover:border-brand-yellow transition duration-300">
+                    <i data-lucide="twitter" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div>
+                <p>&copy; <span id="year"></span> Flare Entertainments. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Set Current Year dynamically
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Subscription Form Interactivity
+        const form = document.getElementById('notifyForm');
+        const emailInput = document.getElementById('emailInput');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (emailInput.value) {
+                successMsg.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 6000);
+            }
+        });
+
+        // Interactive Spark Particles in Canvas
+        const canvas = document.getElementById('flareCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 50;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height + canvas.height;
+                this.size = Math.random() * 2.2 + 0.6;
+                this.speedY = Math.random() * 1.1 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.fade = Math.random() * 0.004 + 0.001;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= this.fade;
+
+                if (this.opacity <= 0 || this.y < 0) {
+                    this.reset();
+                    this.y = canvas.height + 10;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(218, 222, 33, ${this.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#DADE21';
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            initParticles();
+            animateParticles();
+        };
+    </script>
+</body>
+</html>
